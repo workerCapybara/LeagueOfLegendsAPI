@@ -1,0 +1,779 @@
+{
+	"info": {
+		"_postman_id": "1c77f194-d72f-45ab-b2b5-19cdc0285dde",
+		"name": "League of Legends API",
+		"description": "The following requests are presented to test the diferent endpoints of the League of Legends API.\n\nEndpoints related to GET requests can be used freely without any authorization. However, endpoints related with POST, PUT and DELETE requests require a bearer token to be used. This can be obtained by the \"Get bearer token\" request located in the User folder. It must be used with a basic authorization (User: \"webadmin\", Password:\"admin\").",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31103001"
+	},
+	"item": [
+		{
+			"name": "Champions",
+			"item": [
+				{
+					"name": "Filters",
+					"item": [
+						{
+							"name": "Filter by name",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost/League of Legends API REST/api/champion?filter=Name&value=Veigar",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"League of Legends API REST",
+										"api",
+										"champion"
+									],
+									"query": [
+										{
+											"key": "filter",
+											"value": "Name"
+										},
+										{
+											"key": "value",
+											"value": "Veigar"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Filter by role",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost/League of Legends API REST/api/champion?filter=Role&value=ADC",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"League of Legends API REST",
+										"api",
+										"champion"
+									],
+									"query": [
+										{
+											"key": "filter",
+											"value": "Role"
+										},
+										{
+											"key": "value",
+											"value": "ADC"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Filter by price",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost/League of Legends API REST/api/champion?filter=Price&value=800",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"League of Legends API REST",
+										"api",
+										"champion"
+									],
+									"query": [
+										{
+											"key": "filter",
+											"value": "Price"
+										},
+										{
+											"key": "value",
+											"value": "800"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "This folder contains the requests related to filter the champions in the database, using the URL:\n\n[http://localhost/League](http://localhost/League) of Legends API REST/api/champion?filter=Price&value=800\n\nThe field \"filter\" can be \"Name\", \"Role\" or \"Price\", while the field \"value\" must contain the exact value (a string in the case of \"Name\" or \"Role\" or an integer in the case of \"Price\") that the user is looking for."
+				},
+				{
+					"name": "Sorting",
+					"item": [
+						{
+							"name": "Sort by name",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost/League of Legends API REST/api/champion?sort=Name&order=asc",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"League of Legends API REST",
+										"api",
+										"champion"
+									],
+									"query": [
+										{
+											"key": "sort",
+											"value": "Name"
+										},
+										{
+											"key": "order",
+											"value": "asc"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Sort by role",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost/League of Legends API REST/api/champion?sort=Role&order=asc",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"League of Legends API REST",
+										"api",
+										"champion"
+									],
+									"query": [
+										{
+											"key": "sort",
+											"value": "Role"
+										},
+										{
+											"key": "order",
+											"value": "asc"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Sort by price",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost/League of Legends API REST/api/champion?sort=Price&order=asc",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"League of Legends API REST",
+										"api",
+										"champion"
+									],
+									"query": [
+										{
+											"key": "sort",
+											"value": "Price"
+										},
+										{
+											"key": "order",
+											"value": "asc"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "This folder contains the requests related to sort the champions in the database, using the URL:\n\n[http://localhost/League](http://localhost/League) of Legends API REST/api/champion?sort=Name&order=asc\n\nThe field \"sort\" can be \"Name\", \"Role\" or \"Price\", while the field \"order\" can be \"asc\" (ascendent order) or \"desc\" (descendent order)."
+				},
+				{
+					"name": "CRUD operations",
+					"item": [
+						{
+							"name": "Get all campions",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost/League of Legends API REST/api/champion",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"League of Legends API REST",
+										"api",
+										"champion"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete champion",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost/League of Legends API REST/api/champion/3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"League of Legends API REST",
+										"api",
+										"champion",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create champion",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VyX25hbWUiOiJ3ZWJhZG1pbiIsInBhc3N3b3JkIjoiJDJ5JDEwJERXcEp5cVVHTC5NeTI4YnM5WFI0VC5mc0hNZGE1VUtRNEpQTjVhOC56OU1xbjhIT3dxYWpPIiwiZXhwIjoxNzQ0NDA5ODgzfQ.KzuhHhzLBE80RrHM48RDXRHHnhcfH0u5tFp_3BULP0k",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"name\": \"Caitlyn\",\r\n        \"role\": \"ADC\",\r\n        \"price\": 800\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost/League of Legends API REST/api/champion",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"League of Legends API REST",
+										"api",
+										"champion"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get champion by id",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost/League of Legends API REST/api/champion/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"League of Legends API REST",
+										"api",
+										"champion",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update champion",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \"name\": \"Veigar\", \"role\": \"Mage\", \"price\": 1350 }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost/League of Legends API REST/api/champion/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"League of Legends API REST",
+										"api",
+										"champion",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Pagination",
+					"item": [
+						{
+							"name": "Pagination",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost/League of Legends API REST/api/champion?limit=2&page=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"League of Legends API REST",
+										"api",
+										"champion"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "2"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "This folder contains the requests related to the pagination of the champions in the database, using the URL:\n\nhttp://localhost/League of Legends API REST/api/champion?limit=2&page=1  \n\nThe field \"limit\" indicates the maximum amount of champions showed per page, while the field \"page\" indicates the number of page the user wants to see."
+				}
+			],
+			"description": "This folder contains all the requests related to champions."
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get bearer token",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "webadmin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/League of Legends API REST/api/user/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"League of Legends API REST",
+								"api",
+								"user",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "This folder contains the request used to obtain the bearer token needed to do POST, PUT and DELETE requests.\n\nIt must be used a basic auth with user:\"webadmin\" and password:\"admin\"."
+		},
+		{
+			"name": "Skins",
+			"item": [
+				{
+					"name": "CRUD operations",
+					"item": [
+						{
+							"name": "Create skin",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \"name\": \"Freljord Ashe\", \"champion_id\": 1, \"price\": 1200 }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost/League of Legends API REST/api/Skins",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"League of Legends API REST",
+										"api",
+										"Skins"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all skins",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost/League of Legends API REST/api/Skins",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"League of Legends API REST",
+										"api",
+										"Skins"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get skin by id",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost/League of Legends API REST/api/Skins/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"League of Legends API REST",
+										"api",
+										"Skins",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete skin",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost/League of Legends API REST/api/Skins/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"League of Legends API REST",
+										"api",
+										"Skins",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update skin",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \"name\": \"Queen Ashe\", \"price\": 1200 }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost/League of Legends API REST/api/Skins/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"League of Legends API REST",
+										"api",
+										"Skins",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "This folder contains GET, POST, PUT and DELETE requests related to skins."
+				},
+				{
+					"name": "Filters",
+					"item": [
+						{
+							"name": "Filter by name",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost/League of Legends API REST/api/Skins?filter=Name&value=Queen",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"League of Legends API REST",
+										"api",
+										"Skins"
+									],
+									"query": [
+										{
+											"key": "filter",
+											"value": "Name"
+										},
+										{
+											"key": "value",
+											"value": "Queen"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Filter by price",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost/League of Legends API REST/api/Skins?filter=Price&value=3000",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"League of Legends API REST",
+										"api",
+										"Skins"
+									],
+									"query": [
+										{
+											"key": "filter",
+											"value": "Price"
+										},
+										{
+											"key": "value",
+											"value": "3000"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "This folder contains the requests related to filter the skins in the database, using the URL:\n\n[http://localhost/League](http://localhost/League) of Legends API REST/api/Skins?filter=Price&value=800\n\nThe field \"filter\" can be \"Name\" or \"Price\", while the field \"value\" must contain the exact value (a string in the case of \"Name\" or an integer in the case of \"Price\") that the user is looking for."
+				},
+				{
+					"name": "Sorting",
+					"item": [
+						{
+							"name": "Sort by name",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost/League of Legends API REST/api/Skins?sort=Name&order=asc",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"League of Legends API REST",
+										"api",
+										"Skins"
+									],
+									"query": [
+										{
+											"key": "sort",
+											"value": "Name"
+										},
+										{
+											"key": "order",
+											"value": "asc"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Sort by price",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost/League of Legends API REST/api/Skins?sort=Price&order=asc",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"League of Legends API REST",
+										"api",
+										"Skins"
+									],
+									"query": [
+										{
+											"key": "sort",
+											"value": "Price"
+										},
+										{
+											"key": "order",
+											"value": "asc"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "This folder contains the requests related to sort the skins in the database, using the URL:\n\n[http://localhost/League](http://localhost/League) of Legends API REST/api/Skins?sort=Name&order=asc\n\nThe field \"sort\" can be \"Name\" or \"Price\", while the field \"order\" can be \"asc\" (ascendent order) or \"desc\" (descendent order)."
+				},
+				{
+					"name": "Pagination",
+					"item": [
+						{
+							"name": "Pagination",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost/League of Legends API REST/api/Skins?limit=2&page=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"League of Legends API REST",
+										"api",
+										"Skins"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "2"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "This folder contains the requests related to the pagination of the skins in the database, using the URL:\n\n[http://localhost/League](http://localhost/League) of Legends API REST/api/Skins?limit=2&page=1\n\nThe field \"limit\" indicates the maximum amount of skins showed per page, while the field \"page\" indicates the number of page the user wants to see."
+				}
+			],
+			"description": "This folder contains all the requests related to skins."
+		}
+	]
+}

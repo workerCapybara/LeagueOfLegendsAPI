@@ -24,7 +24,7 @@ class ApiSkins extends ApiController{
             ], 200);
         } else {
             $this->view->response([
-                'data' => 'La Skin solicitada no existe',
+                'data' => 'Required skin does not exist',
                 'status' => 'error'
             ], 404);
         }
@@ -49,7 +49,7 @@ class ApiSkins extends ApiController{
         //Pagination
         $queryParams += $this->handlePagination();
         
-        //Se obtienen los álbumes y se devuelven en formato JSON
+        //Obtains the skins and handles them in JSON format
         $Skins = $this->model->getAllSkins($queryParams);
         return $this->view->response($Skins, 200);
     }
@@ -58,22 +58,29 @@ class ApiSkins extends ApiController{
 
 
     function delete($params = []) {
-            $Skin_id = $params[':Skin_id'];
-            $Skins = $this->model->getSkinsById($Skin_id);
 
-            if($Skins) {
-                $this->model->deleteSkins($Skin_id);
-                $this->view->response('La Skin con id='.$Skin_id.' ha sido borrada.', 200);
-            } else {
-                $this->view->response('La Skin con id='.$Skin_id.' no existe.', 404);
-            }
+        $user = $this->AuthHelper->currentUser();   //Verify that the user is logged
+        if (!$user) {
+            $this->view->response('User is unauthorized to do this action', 401);
+            return;
         }
+
+        $Skin_id = $params[':Skin_id'];
+        $Skins = $this->model->getSkinsById($Skin_id);
+
+        if($Skins) {
+            $this->model->deleteSkins($Skin_id);
+            $this->view->response('Skin with id='.$Skin_id.' has been deleted.', 200);
+        } else {
+            $this->view->response('Skin with id='.$Skin_id.' does not exist.', 404);
+        }
+    }
 
         function createSkins($params = []) {
 
-            $user = $this->AuthHelper->currentUser();   //Verifico que el usuario este logueado
+            $user = $this->AuthHelper->currentUser();   //Verify that user is logged in
             if (!$user) {
-                $this->view->response('El usuario no esta autorizado para realizar esta accion', 401);
+                $this->view->response('User is unauthorized to do this action', 401);
                 return;
             }
 
@@ -106,7 +113,7 @@ class ApiSkins extends ApiController{
 
         function update($params = []) {
 
-            $user = $this->AuthHelper->currentUser();   //Verifico que el usuario este logueado
+            $user = $this->AuthHelper->currentUser();   //Verify that user is logged in
             if (!$user) {
                 $this->view->response('User is unauthorized to do this action', 401);
                 return;
@@ -141,7 +148,7 @@ class ApiSkins extends ApiController{
           var_dump($filter);
           var_dump($value);
     
-                //If the fiel does not exist it produces an error
+                //If the field does not exist it produces an error
                 if (!in_array($filter, $columns)) {
                     $this->view->response("Invalid filter parameter (field '$filter' does not exist)", 400);
                     die();

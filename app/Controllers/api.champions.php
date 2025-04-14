@@ -47,7 +47,7 @@ class ApiChampions extends ApiController {
         //Pagination
         $queryParams += $this->handlePagination();
         
-        //Obtains the skins and handles them in JSON format
+        //Obtains the champions and handles them in JSON format
         $champions = $this->model->getAllChampions($queryParams);
         return $this->view->response($champions, 200);
     }
