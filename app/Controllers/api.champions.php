@@ -133,8 +133,8 @@ class ApiChampions extends ApiController {
         private function handleFilter($columns) {
             // Valores por defecto
             $filterData = [
-                'filter' => "", // Campo de filtrado
-                'value' => ""   // Valor de filtrado
+                'filter' => "", //Filter field
+                'value' => ""   //Value field
             ];
     
             if (!empty($_GET['filter']) && !empty($_GET['value'])) {

@@ -1,0 +1,546 @@
+openapi: 3.0.4
+info:
+  title: League of Legends API
+  description: An example API which can be used to apply CRUD operations to champions and their skins from the videogame League of Legends. It also includes an user authentication used for POST, PUT and DELETE requests.
+  version: 1.0.0
+  
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+servers:
+- url: http://localhost/League of Legends API REST/api/
+tags:
+- name: Champions
+  description: Contains CRUD operations related to champions.
+  
+- name: Skins
+  description: Contains CRUD operations related to champion's skins.
+  
+- name: Users
+  description: Contains the endpoint necesary to get the bearer token used in POST, PUT and DELETE requests.
+
+paths:
+
+  /champion:
+    get:
+      tags:
+        - Champions
+      summary: Returns a list of champions.
+      description: Return a list of the champions in the database, which the user can filter, sort or paginate.
+      parameters:
+        - in: query
+          name: filter
+          schema:
+            type: string
+          description: Filter parameter based on the column names of the database.
+        - in: query
+          name: value
+          schema:
+            type: string
+          description: Filter value.
+        - in: query
+          name: sort
+          schema:
+            type: string
+          description: Parameter used to order the champions ("price", "name", "role", etc.).
+        - in: query
+          name: order
+          schema:
+            type: string
+            enum: [ASC, DESC]
+          description: Results order (ascendent o descendent).
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: Page number that user sees.
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: Maximum amount of champions per page.
+      responses:
+        '200':
+          description: Champions returned sucessfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    championId:
+                      type: integer
+                      example: 4
+                    name:
+                      type: string
+                      example: "Ashe"
+                    role:
+                      type: string
+                      example: "ADC"
+                    price:
+                      type: number
+                      format: float
+                      example: 3000
+        '400':
+          description: There is a field missing.
+        '500':
+          description: Internal server error.
+          
+    post:
+      tags:
+        - Champions
+      summary: Creates a new champion
+      description: Creates a champion. It requires an authentication with bearer token.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - role
+                - price
+              properties:
+                name:
+                  type: string
+                  example: "Volibear"
+                role:
+                  type: string
+                  example: "Tank"
+                price:
+                  type: number
+                  example: 850
+      responses:
+        '200':
+          description: Champion created sucessfully.
+        '400':
+          description: There is some field missing.
+        '401':
+          description: User is unauthorized to do this action.
+        '500':
+          description: Champion was not created.
+  
+  /champion/{id}:
+    get:
+      tags:
+        - Champions
+      summary: Returns a champion filtered by its id.
+      description: Returns an especific champion from the database with the championId specified by user.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: Champion ID.
+      responses:
+        '200':
+          description: Champion obtained sucessfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  championId:
+                    type: integer
+                    example: 3
+                  name:
+                    type: string
+                    example: "Yasuo"
+                  role:
+                    type: string
+                    example: Assasin
+                  price:
+                    type: number
+                    format: float
+                    example: 1350
+        '404':
+          description: Required champion does not exist.
+  
+    put:
+      tags:
+        - Champions
+      summary: Updates an existent champion.
+      description: Modify an existent champion from the database, indicated by the championId provided by user on the URL. It requires an authentication with bearer token.
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: Champion ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - role
+                - price
+              properties:
+                name:
+                  type: string
+                  example: "Ashe"
+                role:
+                  type: string
+                  example: "ADC"
+                price:
+                  type: number
+                  example: 450
+      responses:
+        '200':
+          description: Champion updated sucessfully.
+        '401':
+          description: User is not authorized to do this action.
+        '404':
+          description: Requested champion does not exist.
+  
+    delete:
+      tags:
+        - Champions
+      summary: Deletes an existent champion
+      description: Deletes an existent champion from the database, indicated by the championId provided by user on the URL. It requires an authentication with bearer token.
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: Champion ID
+      responses:
+        '200':
+          description: Champion deleted sucessfully.
+        '401':
+          description: User is not authorized to do this action.
+        '404':
+          description: Requested champion does not exist.
+
+  
+  /skins:
+    get:
+      tags:
+        - Skins
+      summary: Returns a list of skins.
+      description: Return a list of the skins in the database, which the user can filter, sort or paginate.
+      parameters:
+        - in: query
+          name: filter
+          schema:
+            type: string
+          description: Filter parameter based on the column names of the database.
+        - in: query
+          name: value
+          schema:
+            type: string
+          description: Filter value.
+        - in: query
+          name: sort
+          schema:
+            type: string
+          description: Parameter used to order the skins ("price", "name", etc.).
+        - in: query
+          name: order
+          schema:
+            type: string
+            enum: [asc, desc]
+          description: Results order (ascendent o descendent).
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 10
+          description: Maximum amount of skins per page.
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 1
+          description: Page number that user sees.
+      responses:
+        '200':
+          description: Skins returned sucessfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    skinId:
+                      type: integer
+                      example: 4
+                    name:
+                      type: string
+                      example: "Queen Ashe"
+                    price:
+                      type: number
+                      format: float
+                      example: 3000
+                    champion_id:
+                      type: integer
+                      example: 2
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+  
+    post:
+      tags:
+        - Skins
+      summary: Creates a new skin.
+      description: Creates a new skin for a champion indicated by the user. It requires an authentication with bearer token. 
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - price
+                - champion_id
+              properties:
+                name:
+                  type: string
+                  example: "Pulsefire Ezreal"
+                price:
+                  type: number
+                  format: float
+                  example: 1350
+                champion_id:
+                  type: integer
+                  example: 4
+      responses:
+        '200':
+          description: Skin created sucessfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                  status:
+                    type: string
+                    example: success
+        '400':
+          description: Required fields missing.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: string
+                    example: There is a missing field
+                  status:
+                    type: string
+                    example: error
+        '401':
+          description: Unauthenticated user.
+          content:
+            application/json:
+              schema:
+                type: string
+                example: User is unauthorized to do this action
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: string
+                    example: Skin was not created
+                  status:
+                    type: string
+                    example: error
+  
+  /skins/{id}:
+    get:
+      tags:
+        - Skins
+      summary: Returns a skin filtered by its id.
+      description: Returns an especific skin from the database with th skinId specified by user.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the skin user wants to get.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Skin obtained sucessfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 3
+                  name:
+                    type: string
+                    example: "PROJECT: Yasuo"
+                  price:
+                    type: number
+                    format: float
+                    example: 1820
+                  champion_id:
+                    type: integer
+                    example: 1
+        '404':
+          description: Skin not found.
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Skin with id=3 does not exist.
+                
+    put:
+      tags:
+        - Skins
+      summary: Updates an existent skin.
+      description: Modify an existent skin from the database, indicated by the skinId provided by user on the URL. It requires an authentication with bearer token.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID from the skin user wants to modify.
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - price
+              properties:
+                name:
+                  type: string
+                  example: "PROJECT: Yasuo"
+                price:
+                  type: number
+                  format: float
+                  example: 1820
+      responses:
+        '200':
+          description: Skin was modified sucessfully.
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Skin with id=3 has been modified.
+        '401':
+          description: Unauthenticated user.
+          content:
+            application/json:
+              schema:
+                type: string
+                example: User is unauthorized to do this action
+        '404':
+          description: Skin not found.
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Skin with id=3 does not exist.
+    
+    delete:
+      tags:
+        - Skins
+      summary: Deletes an existent skin.
+      description: Deletes an existent skin from the database, indicated by the skinId provided by user on the URL. It requires an authentication with bearer token.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the skin user wants to delete.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Skin deleted sucessfully.
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Skin with id=1 has been deleted.
+        '401':
+          description: Usuario no autorizado.
+          content:
+            application/json:
+              schema:
+                type: string
+                example: User is unauthorized to do this action
+        '404':
+          description: Skin not found.
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Skin with id=1 does not exist.
+  
+  /user/token:
+    get:
+      tags:
+        - Users
+      summary: Authenticate user and return token.
+      description: >
+        Requires Basic Authentication header (`Authorization: Basic base64(username:password)`).
+        Returns a JWT token if the username and password are valid.
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+            example: Basic YWRtaW46YWRtaW4=
+          description: >
+            Basic authentication header using base64 encoding of `username:password`.
+      responses:
+        '200':
+          description: Authentication successful, JWT token returned.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        '401':
+          description: Unauthorized. Either the credentials are missing or invalid.
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Password or user incorrect
+        '500':
+          description: Internal server error.
+
